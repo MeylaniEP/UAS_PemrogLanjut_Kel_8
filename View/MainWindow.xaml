@@ -1,0 +1,96 @@
+﻿<Window x:Class="KatalogFilm.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:helper="clr-namespace:KatalogFilm.ViewModel.Helper"
+        xmlns:local="clr-namespace:KatalogFilm.View"
+        xmlns:vm="clr-namespace:KatalogFilm.ViewModel"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="600" Width="900"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent">
+
+    <Window.Resources>
+        <helper:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Window.Visibility>
+        <Binding Path="IsMainVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibilityConverter}"/>
+    </Window.Visibility>
+
+    <Grid>
+        <!--//window bordir//-->
+        <Border Background="#191930"
+                CornerRadius="20"/>
+
+        <!--base grid-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="228"/>
+                <ColumnDefinition Width="672"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Navigasi -->
+            <Border/>
+            <Grid Grid.Column="0" Background="#232439">
+                <StackPanel Grid.Column="0"
+                            VerticalAlignment="Top">
+
+                    <Border>
+                        <Image Source="..\Image\pngwing.com (1).png"
+                           Height="70"
+                           VerticalAlignment="Top"
+                           Margin="10"/>
+                    </Border>
+
+                    <!-- Home -->
+                    <RadioButton Style="{StaticResource BtnStyle}"
+                             Command="{Binding HomeCommand}"
+                             IsChecked="True">
+                        <Grid>
+                            <Image Source="..\Image\material-symbols_home.png"
+                                   Style="{StaticResource Image_Style}"/>
+                            <TextBlock Text="Home"
+                                       Style="{StaticResource Text_Style}"/>
+
+                        </Grid>
+                    </RadioButton>
+
+                    <!-- My Favorites -->
+                    <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding MyFavoriteCommand}">
+                        <Grid>
+                            <Image Source="..\Image\mdi_favourite-1.png"
+                                   Style="{StaticResource Image_Style}"/>
+                            <TextBlock Text="My Favorites"
+                                       Style="{StaticResource Text_Style }"/>
+                        </Grid>
+                    </RadioButton>
+
+                    <!-- Account -->
+                    <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding AccountCommand}">
+                        <Grid>
+                            <Image Source="..\Image\ph_user-fill.png"
+                                   Style="{StaticResource Image_Style}"/>
+                            <TextBlock Text="Account"
+                                       Style="{StaticResource Text_Style}"/>
+                        </Grid>
+                    </RadioButton>
+
+                    <!-- Logout -->
+                    <Button Content="Logout" Command="{Binding LogoutCommand}" Margin="10,20,10,0" VerticalAlignment="Bottom"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+    <!--NAMBAH BAGIAN CLOSE APP-->
+
+</Window>
